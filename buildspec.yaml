@@ -9,6 +9,10 @@ phases:
       - echo Fetching the commit hash from CodeBuild environment...
       - export IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c1-7)
       - echo "Using commit hash $IMAGE_TAG as the image tag"
+      - payload=$(echo -n '{"environment":"staging"}' | base64)
+      - aws lambda invoke --function-name read-env-sam --invocation-type RequestResponse --region us-east-1 --payload "$payload" app_env.json
+      - cat app_env.json | jq -r '.body' >> .env
+      - cat .env
   build:
     commands:
       - echo Building the Docker image...
