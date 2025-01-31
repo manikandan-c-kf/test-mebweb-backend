@@ -10,7 +10,7 @@ phases:
       - export IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c1-7)
       - echo "Using commit hash $IMAGE_TAG as the image tag"
       - payload='{"environment":"staging"}'
-      - aws lambda invoke --function-name read-env-sam --invocation-type RequestResponse --region us-east-1 --payload "$payload" app_env.json
+      - aws lambda invoke --function-name read-env-mebweb-dev --invocation-type RequestResponse --region us-east-1 --payload "$payload" app_env.json
       - cat app_env.json | jq -r '.body' >> .env
       - cat .env
   build:
