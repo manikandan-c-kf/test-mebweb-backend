@@ -26,7 +26,7 @@ RUN mkdir -p /app/staticfiles
 COPY . .
 
 # Expose the port the app runs on
-EXPOSE 8000
+EXPOSE 80
 
 # Collect static files (optional, for production use)
 RUN python manage.py collectstatic --noinput
